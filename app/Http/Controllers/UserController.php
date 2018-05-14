@@ -44,6 +44,12 @@ class UserController extends Controller
         return response()->json(['success' => 'User successfully registered'], 201);
     }
 
+    public function validateToken(Request $request) {
+        $this->validate($request, ['token' => 'required']);
+
+        return response()->json(['success' => true, 'message' => 'Token still valid'], 200);
+    }
+
     public function logout(Request $request) {
         $this->validate($request, ['token' => 'required']);
 

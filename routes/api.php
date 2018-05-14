@@ -17,6 +17,7 @@ Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 
 Route::group(['middleware' => ['jwt.auth']], function() {
+	Route::get('validate', 'UserController@validateToken');
     Route::get('logout', 'UserController@logout');
 
     // lane
