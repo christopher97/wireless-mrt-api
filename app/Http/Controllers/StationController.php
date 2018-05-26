@@ -40,11 +40,17 @@ class StationController extends Controller
         $chosen = -1;                           // chosen index
 
         for($i=0; $i<$total; $i++) {
-            $manhattan = sqrt(pow(($lat - $stations[$i]->$lat),2) + pow(($long - $stations[$i]->long),2));
+
+            $x = pow(($lat - $stations[$i]->lat),2);
+            $y = pow(($long - $stations[$i]->long),2);
+
+            $manhattan = sqrt($x + $y);
+            echo $manhattan . "\xA";
             if ($manhattan < $min) {
                 $min = $manhattan;
                 $chosen = $i;
             }
+
         }
 
         $chosen = $stations[$chosen];
