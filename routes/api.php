@@ -16,13 +16,17 @@ use Illuminate\Http\Request;
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 
+Route::get('stations', 'StationController@fetch');
+Route::get('station/{id}', 'StationController@find');
+Route::get('nearby', 'StationController@nearby');
+
 Route::group(['middleware' => ['jwt.auth']], function() {
 	Route::get('validate', 'UserController@validateToken');
-    Route::get('logout', 'UserController@logout');
+  Route::get('logout', 'UserController@logout');
 
-    // lane
-    Route::get('lane', 'LaneController@fetch');
-    Route::get('lane/{id}', 'LaneController@find');
+  // lane
+  Route::get('lane', 'LaneController@fetch');
+  Route::get('lane/{id}', 'LaneController@find');
 });
 
 // Route::middleware('auth:api')->get('/user', function (Request $request) {

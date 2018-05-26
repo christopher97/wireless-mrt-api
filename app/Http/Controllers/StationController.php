@@ -22,6 +22,33 @@ class StationController extends Controller
     public function find($id) {
         $station = $this->station->find($id);
 
-        return response()->json(['station' => $station], 200);
+        if ($station) {
+            return response()->json(['station' => $station], 200);
+        }
+
+        return response()->json(['station' => $station, 'message' => 'invalid station id'], 400);
+    }
+
+    public function nearby(Request $request) {
+        $lat = floatval($request->lat);
+        $long = floatval($request->long);
+
+        $stations = $this->station->all();      // get all stations
+        $total = count($stations);              // total stations
+
+        $min = 999999999;                       // minimum distance
+        $chosen = -1;                           // chosen index
+
+        for($i=0; $i<$total; $i++) {
+            $manhattan = sqrt(pow(($lat - $stations[$i]->$lat),2) + pow(($long - $stations[$i]->long),2));
+            if ($manhattan < $min) {
+                $min = $manhattan;
+                $chosen = $i;
+            }
+        }
+
+        $chosen = $stations[$chosen];
+
+        return response()->json(['station' => $chosen], 200);
     }
 }
