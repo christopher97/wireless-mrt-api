@@ -45,7 +45,6 @@ class StationController extends Controller
             $y = pow(($long - $stations[$i]->long),2);
 
             $manhattan = sqrt($x + $y);
-            echo $manhattan . "\xA";
             if ($manhattan < $min) {
                 $min = $manhattan;
                 $chosen = $i;
