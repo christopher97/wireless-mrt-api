@@ -58,10 +58,6 @@ class TrainController extends Controller
 
         $time = Carbon::now();
         $diff = $time->diffInSeconds($train->updated_at);
-        echo $train->updated_at;
-        echo $time;
-        die;
-        dd($diff);
 
         $eta = ($pt->time * 60) - $diff;
         dd($eta);
