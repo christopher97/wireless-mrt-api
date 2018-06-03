@@ -57,8 +57,11 @@ class UserController extends Controller
         // set train to empty (no driver)
         $user = JWTAuth::parseToken()->authenticate();
         $train = $user->train;
-        $train->driver_id = NULL;
-        $train->save();
+
+        if ($train) {
+            $train->driver_id = NULL;
+            $train->save();
+        }
 
         try {
             JWTAuth::invalidate($request->input('token'));
