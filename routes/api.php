@@ -24,6 +24,10 @@ Route::group(['middleware' => ['jwt.auth']], function() {
 	Route::get('validate', 'UserController@validateToken');
   Route::get('logout', 'UserController@logout');
 
+  // train
+  Route::post('choose', 'TrainController@chooseTrain');
+  Route::get('eta/{id}', 'TrainController@calculateETA');
+
   // lane
   Route::get('lane', 'LaneController@fetch');
   Route::get('lane/{id}', 'LaneController@find');

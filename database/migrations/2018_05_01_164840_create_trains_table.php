@@ -17,7 +17,7 @@ class CreateTrainsTable extends Migration
             $table->increments('id');
             $table->integer('lane_id')->unsigned();
             $table->integer('last_id')->unsigned();
-            $table->integer('next_id')->unsigned();
+            $table->integer('driver_id')->nullable()->unsigned();
             $table->integer('direction');
             $table->timestamps();
         });
@@ -31,8 +31,8 @@ class CreateTrainsTable extends Migration
                     ->references('id')->on('stations')
                     ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->foreign('next_id')
-                    ->references('id')->on('stations')
+            $table->foreign('driver_id')
+                    ->references('id')->on('users')
                     ->onDelete('cascade')->onUpdate('cascade');
         });
     }

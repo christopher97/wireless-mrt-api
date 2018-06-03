@@ -28,4 +28,8 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function train() {
+        return $this->hasOne('App\Models\Train', 'driver_id', 'id');
+    }
 }

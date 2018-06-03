@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Train;
 use JWTAuth;
 use Validator, Hash;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -52,6 +53,12 @@ class UserController extends Controller
 
     public function logout(Request $request) {
         $this->validate($request, ['token' => 'required']);
+
+        // set train to empty (no driver)
+        $user = JWTAuth::parseToken()->authenticate();
+        $train = $user->train;
+        $train->driver_id = NULL;
+        $train->save();
 
         try {
             JWTAuth::invalidate($request->input('token'));
