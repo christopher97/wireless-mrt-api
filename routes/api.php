@@ -19,6 +19,7 @@ Route::post('register', 'UserController@register');
 Route::get('stations', 'StationController@fetch');
 Route::get('station/{id}', 'StationController@find');
 Route::get('nearby', 'StationController@nearby');
+Route::get('eta/{id}', 'TrainController@calculateETA');
 
 Route::group(['middleware' => ['jwt.auth']], function() {
 	Route::get('validate', 'UserController@validateToken');
@@ -26,7 +27,6 @@ Route::group(['middleware' => ['jwt.auth']], function() {
 
   // train
   Route::post('choose', 'TrainController@chooseTrain');
-  Route::get('eta/{id}', 'TrainController@calculateETA');
 
   // lane
   Route::get('lane', 'LaneController@fetch');
