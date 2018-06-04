@@ -12,8 +12,8 @@ class TrainsTableSeeder extends Seeder
      */
     public function run()
     {
-        Train::create(['lane_id' => 1, 'last_id' => 1, 'driver_id' => NULL, 'direction' => 0]);
-        Train::create(['lane_id' => 1, 'last_id' => 8, 'driver_id' => NULL, 'direction' => 1]);
-        Train::create(['lane_id' => 1, 'last_id' => 3, 'driver_id' => NULL, 'direction' => 0]);
+        Train::create(['lane_id' => 1, 'last_id' => 1, 'driver_id' => NULL, 'moving' => 0, 'direction' => 0]);
+        Train::create(['lane_id' => 1, 'last_id' => 8, 'driver_id' => NULL, 'moving' => 0, 'direction' => 1]);
+        Train::create(['lane_id' => 1, 'last_id' => 3, 'driver_id' => NULL, 'moving' => 0, 'direction' => 0]);
     }
 }

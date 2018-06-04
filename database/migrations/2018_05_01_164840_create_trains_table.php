@@ -18,6 +18,7 @@ class CreateTrainsTable extends Migration
             $table->integer('lane_id')->unsigned();
             $table->integer('last_id')->unsigned();
             $table->integer('driver_id')->nullable()->unsigned();
+            $table->integer('moving');
             $table->integer('direction');
             $table->timestamps();
         });

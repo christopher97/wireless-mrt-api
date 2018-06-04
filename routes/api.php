@@ -16,17 +16,25 @@ use Illuminate\Http\Request;
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 
+// stations
 Route::get('stations', 'StationController@fetch');
 Route::get('station/{id}', 'StationController@find');
 Route::get('nearby', 'StationController@nearby');
-Route::get('eta/{id}', 'TrainController@calculateETA');
 
+// trains
+Route::get('eta/{stationID}/{trainID}', 'TrainController@calculateETA');
+Route::get('trains/active', 'TrainController@active');
+
+// --------------------------
+// DRIVER ONLY
+// --------------------------
 Route::group(['middleware' => ['jwt.auth']], function() {
 	Route::get('validate', 'UserController@validateToken');
   Route::get('logout', 'UserController@logout');
 
   // train
   Route::post('choose', 'TrainController@chooseTrain');
+  Route::get('trains/inactive', 'TrainController@inactive');
 
   // lane
   Route::get('lane', 'LaneController@fetch');
