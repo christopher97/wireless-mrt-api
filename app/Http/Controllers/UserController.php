@@ -24,7 +24,8 @@ class UserController extends Controller
             return response()->json(['error' => 'Invalid credentials'], 401);
         }
 
-        return response()->json(compact('token'));
+        $user = JWTAuth::toUser($token);
+        return response()->json(['token' => $token, 'train' => $user->train], 200);
     }
 
     public function register(Request $request) {

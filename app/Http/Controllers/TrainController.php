@@ -72,7 +72,7 @@ class TrainController extends Controller
             return response()->json(['message' => 'Success'], 200);
         }
 
-        return response()->json(['message' => 'Train Occupied'], 400);
+        return response()->json(['error' => 'Train Occupied'], 400);
     }
 
     public function triggerMoving(Request $request) {
