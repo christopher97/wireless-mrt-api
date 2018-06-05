@@ -131,6 +131,28 @@ class TrainController extends Controller
         return $pt;
     }
 
+    private function findNextStation($currStation, $direction) {
+        $pt = $this->getPath();
+
+        if ($direction == 0) {
+            for ($i = 0; $i < count($pt); $i++) {
+                $curr = $pt[$i];
+
+                if ($curr->station1_id == $currStation) {
+                    return $curr->station2;
+                }
+            }
+        } else {
+            for ($i = 0; $i < count($pt); $i++) {
+                $curr = $pt[$i];
+
+                if ($curr->station2_id == $currStation) {
+                    return $curr->station1;
+                }
+            }
+        }
+    }
+
     /**
      *  ETA Algorithm
      *
@@ -235,6 +257,12 @@ class TrainController extends Controller
                     $eta -= $diff;
                 }
             }
+
+            $prev = $currTrain->last->name;
+            $next = $this->findNextStation($currTrain->last_id, $currTrain->direction)->name;
+
+            $currTrain->prev = $prev;
+            $currTrain->next = $next;
 
             if (!$passed) {
                 $currTrain->eta = $eta;

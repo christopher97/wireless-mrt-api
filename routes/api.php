@@ -23,7 +23,7 @@ Route::get('nearby', 'StationController@nearby');
 
 // trains
 Route::get('eta/{stationID}', 'TrainController@calculateETA');
-Route::get('trains/active', 'TrainController@active');
+//Route::get('trains/active', 'TrainController@active');
 
 // --------------------------
 // DRIVER ONLY
@@ -35,7 +35,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   // train
   Route::get('train/toggle', 'TrainController@triggerMoving');
   Route::post('choose', 'TrainController@chooseTrain');
-  Route::get('trains/inactive', 'TrainController@inactive');
+//  Route::get('trains/inactive', 'TrainController@inactive');
 
   // lane
   Route::get('lane', 'LaneController@fetch');
