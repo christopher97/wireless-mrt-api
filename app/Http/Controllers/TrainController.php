@@ -179,6 +179,7 @@ class TrainController extends Controller
             $currStation = $currTrain->last_id;
             // if train is moving from station1_id to station2_id
             if ($currTrain->direction == 0) {
+                $cp = null;
 
                 // if train's last pos is current station
                 if ($currStation == $stationID) {
@@ -196,8 +197,10 @@ class TrainController extends Controller
                                 $found = true;
                                 $eta += $temp->time;
 
-                                if ($temp->station2_id == $stationID)
+                                if ($temp->station2_id == $stationID) {
                                     $passed = false;
+                                    $cp = $temp;
+                                }
 
                                 $currStation = $temp->station2_id;
                                 break;
@@ -214,11 +217,15 @@ class TrainController extends Controller
                 if ($currTrain->moving == 1) {
                     $time = Carbon::now();
                     $diff = $time->diffInSeconds($currTrain->updated_at);
-                    $eta -= $diff;
+                    if ($cp->time < $diff)
+                        $eta -= ($cp->time*60);
+                    else
+                        $eta -= $diff;
                 }
             }
             // if train is moving from station2_id to station1_id
             else {
+                $cp = null;
 
                 // if train's last pos is current station
                 if ($currStation == $stationID) {
@@ -236,8 +243,10 @@ class TrainController extends Controller
                                 $found = true;
                                 $eta += $temp->time;
 
-                                if ($temp->station1_id == $stationID)
+                                if ($temp->station1_id == $stationID) {
                                     $passed = false;
+                                    $cp = $temp;
+                                }
 
                                 $currStation = $temp->station1_id;
                                 break;
@@ -254,7 +263,10 @@ class TrainController extends Controller
                 if ($currTrain->moving == 1) {
                     $time = Carbon::now();
                     $diff = $time->diffInSeconds($currTrain->updated_at);
-                    $eta -= $diff;
+                    if ($cp->time < $diff)
+                        $eta -= ($cp->time*60);
+                    else
+                        $eta -= $diff;
                 }
             }
 
