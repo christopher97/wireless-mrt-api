@@ -40,3 +40,8 @@ example:
 ```sh
 api/nearby?lat=-6.226525&long=106.801323
 ```
+
+ETA to current station (GET)
+```sh
+api/eta{id}
+```
